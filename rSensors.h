@@ -5,11 +5,34 @@
 #ifndef FIRMWARE_SENSORS_H
 #define FIRMWARE_SENSORS_H
 
+#include "pins.h"
+#include "../rCore/easylogging++.h"
+
 namespace RVR
 {
-    class Seneors
+    enum class SwitchType
     {
-
+        ADC_BASED,
+        GPIO_BASED
     };
+
+    enum class SwitchState
+    {
+        HIGH,
+        LOW,
+        ERROR
+    };
+
+class Switch
+{
+private:
+    GpioPin* gpioPin;
+    AdcPin* adcPin;
+    SwitchType type;
+public:
+    Switch(int pinNumber, SwitchType type);
+    SwitchState getState();
+};
+
 }
 #endif //FIRMWARE_SENSORS_H
